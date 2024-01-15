@@ -1,0 +1,6 @@
+{
+  "disabled": [
+    "octref.vetur",
+    "dsznajder.es7-react-js-snippets"
+  ]
+}
