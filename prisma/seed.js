@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
-const db = new PrismaClient();
+const prismaDb = new PrismaClient();
 
 async function main() {
   try {
-    await db.category.createMany({
+    await prismaDb.category.createMany({
       data: [
         { name: "Famous People" },
         { name: "Movies & TV" },
@@ -18,20 +18,20 @@ async function main() {
   } catch (error) {
     console.error("Error seeding default categories:", error);
   } finally {
-    await db.$disconnect();
+    await prismaDb.$disconnect();
   }
 }
 
 main()
   .then(() => {
     console.log("Seeded default categories");
-    db.$disconnect();
+    prismaDb.$disconnect();
   })
   .catch((error) => {
     console.error(error);
-    db.$disconnect();
+    prismaDb.$disconnect();
   })
   .finally(() => {
     console.log("Disconnecting from database...");
-    db.$disconnect();
+    prismaDb.$disconnect();
   });

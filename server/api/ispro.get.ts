@@ -1,9 +1,8 @@
-import { AuthUserResponse } from "~/@types/application";
-import { prisma as db } from "~/prisma/prisma-client";
-import { DAY_IN_MS } from "~/utils";
+import { db } from "~/prisma";
+import { DAY_IN_MS, getUser } from "~/utils";
 
 export default defineEventHandler(async (event) => {
-  const user: AuthUserResponse = await event.context.kinde.getUserProfile();
+  const user = await getUser(event.context.kinde);
   if (!user.id) return;
 
   const userSubscription = await db.userSubscription.findUnique({

@@ -1,13 +1,12 @@
 <script setup lang="ts">
+import { $fnSubscribe } from "~/functions";
+
+const { loading, onSubscribe } = $fnSubscribe();
 const proModal = withAppStore();
-const loading = ref<boolean>(false);
 
 // methods
 function closeModal() {
   proModal.proModelStatus = false;
-}
-function onSubscribe() {
-  console.log("subscribe");
 }
 </script>
 
@@ -19,7 +18,7 @@ function onSubscribe() {
         <DialogDescription class="text-center space-y-2">
           Create
           <span class="text-sky-500 mx-1 font-medium">Custom AI</span>
-          Companions!
+          Characters!
         </DialogDescription>
       </DialogHeader>
       <Separator />

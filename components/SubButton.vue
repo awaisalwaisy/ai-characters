@@ -10,10 +10,6 @@ const proModal = withAppStore();
 function toggleModal() {
   proModal.proModelStatus = true;
 }
-
-function initiateStripe() {
-  console.log("initiateStripe");
-}
 </script>
 
 <template>

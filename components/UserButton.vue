@@ -25,7 +25,9 @@ withDefaults(
       <!-- <DropdownMenuItem>Profile</DropdownMenuItem> -->
       <!-- <DropdownMenuItem>Billing</DropdownMenuItem> -->
       <!-- <DropdownMenuItem>Team</DropdownMenuItem> -->
-      <DropdownMenuItem>Logout</DropdownMenuItem>
+      <DropdownMenuItem>
+        <NuxtLink to="/api/logout" external> Logout </NuxtLink>
+      </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>

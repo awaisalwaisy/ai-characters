@@ -15,7 +15,7 @@ if (!auth.loggedIn) {
 } */
 
 // fetch categories
-const { pending, data: categories } = useLazyFetch("/api/categories");
+const { pending, data: categories } = await useLazyFetch("/api/categories");
 </script>
 
 <template>
