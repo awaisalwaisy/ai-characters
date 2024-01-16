@@ -7,7 +7,7 @@ const { data: isPro } = useLazyFetch("/api/ispro");
     <!-- <Navbar isPro={isPro} /> -->
     <Navbar :is-pro="isPro" />
     <aside class="hidden md:flex mt-16 h-full w-20 flex-col fixed inset-y-0">
-      <Sidebar variant="Desktop" />
+      <Sidebar variant="Desktop" :is-pro="isPro" />
     </aside>
     <main class="md:pl-20 pt-16 h-full">
       <slot />

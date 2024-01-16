@@ -7,7 +7,7 @@ defineProps<{ isPro: boolean | null }>();
     class="fixed w-full z-50 flex justify-between items-center py-2 px-4 h-16 border-b border-primary/10 bg-secondary"
   >
     <div class="flex items-center">
-      <Sidebar variant="Mobile" />
+      <Sidebar variant="Mobile" :is-pro="isPro" />
 
       <NuxtLink to="/">
         <h1

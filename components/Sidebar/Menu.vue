@@ -3,7 +3,7 @@ const router = useRouter();
 const route = useRoute();
 import { Home, Plus, Settings } from "lucide-vue-next";
 
-const props = defineProps<{ isPro: boolean }>();
+const props = defineProps<{ isPro: boolean | null }>();
 const proModal = withAppStore();
 
 const onNavigate = (url: string, pro: boolean) => {
@@ -24,7 +24,7 @@ const routes = [
   },
   {
     icon: Plus,
-    to: "/companion/new",
+    to: "/characters/new",
     label: "Create",
     pro: true,
   },
