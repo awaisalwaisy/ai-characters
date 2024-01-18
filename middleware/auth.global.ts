@@ -1,13 +1,14 @@
-export default defineNuxtRouteMiddleware((to, from) => {
-  const auth = useAuth();
-  console.log("auth", auth);
-  const config = useRuntimeConfig();
+import { defineNuxtRouteMiddleware, useNuxtApp } from "#imports";
 
-  if (!auth) {
-    return navigateTo(config.public.clientUrl + "/api/login", {
-      external: true,
-    });
+export default defineNuxtRouteMiddleware(() => {
+  if (!useNuxtApp().$auth.loggedIn) {
+    if (import.meta.server) {
+      return navigateTo(process.env.NUXT_CLIENT_URL + "/api/login", {
+        external: true,
+      });
+    } else {
+      console.log("Not logged in...");
+    }
+    // return abortNavigation();
   }
-
-  return true;
 });

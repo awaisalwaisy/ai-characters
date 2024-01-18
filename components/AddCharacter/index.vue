@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { vAutoAnimate } from "@formkit/auto-animate/vue";
-import type { Category } from "@prisma/client";
+import type { Category, Companion } from "@prisma/client";
 import { Wand2 } from "lucide-vue-next";
 import ImageUpload from "./ImageUpload.vue";
 import { fnAddCharacter } from "./fn-add-char";
 
 // props
-defineProps<{ categories: Category[] | null }>();
+const props = defineProps<{
+  categories: Category[] | null;
+  initialData: Companion | null;
+}>();
 
 // methods
-const { onSubmit, loading } = fnAddCharacter();
-function onImageUpload(val?: string) {
-  console.log("onImageUpload", val);
-}
+const { onSubmit, loading } = fnAddCharacter(props.initialData);
 </script>
 
 <template>
@@ -149,8 +149,7 @@ function onImageUpload(val?: string) {
     </FormField>
     <div class="w-full flex justify-center">
       <Button size="lg" :disabled="loading" type="submit">
-        <!-- {initialData ? "Edit your companion" : "Create your companion"} -->
-        Create your character
+        {{ initialData ? "Edit your character" : "Create your character" }}
         <Wand2 class="w-4 h-4 ml-2" />
       </Button>
     </div>

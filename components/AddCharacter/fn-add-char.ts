@@ -1,16 +1,24 @@
+import type { Companion } from "@prisma/client";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
 import { toast } from "../ui/toast";
 import { ADD_CHARACTER_SCHEMA } from "./../../utils/constants";
 
-export const fnAddCharacter = () => {
+export const fnAddCharacter = (initialData: Companion | null) => {
   const loading = ref<boolean>(false);
 
   const formSchema = toTypedSchema(ADD_CHARACTER_SCHEMA);
 
   const { handleSubmit, resetForm } = useForm({
     validationSchema: formSchema,
-    initialValues: {},
+    initialValues: initialData || {
+      name: "",
+      description: "",
+      instructions: "",
+      seed: "",
+      src: "",
+      categoryId: undefined,
+    },
   });
 
   const onSubmit = handleSubmit((values) => {
