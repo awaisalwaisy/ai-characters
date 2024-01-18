@@ -1,9 +1,10 @@
 export default defineNuxtRouteMiddleware((to, from) => {
   const auth = useAuth();
-  // console.log("auth", auth);
+  console.log("auth", auth);
+  const config = useRuntimeConfig();
 
-  if (!auth.user || !auth.loggedIn) {
-    return navigateTo(process.env.NUXT_CLIENT_URL + "/api/login", {
+  if (!auth) {
+    return navigateTo(config.public.clientUrl + "/api/login", {
       external: true,
     });
   }

@@ -1,18 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "main",
-  // middleware: ["auth-logged-in"],
 });
-
-// handle auth
-/* const router = useRouter();
-const auth = useAuth();
-if (!auth.loggedIn) {
-  console.log(auth.loggedIn);
-  router.push("/sign-in");
-} else {
-  console.log(auth.loggedIn, "user");
-} */
 
 // fetch categories
 const { pending, data: categories } = await useLazyFetch("/api/categories");

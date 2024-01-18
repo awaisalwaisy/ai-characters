@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     "shadcn-nuxt",
     "@nuxtjs/color-mode",
     "@pinia/nuxt",
+    // "@nuxtjs/cloudinary", useless module. Use cloudinary REST api instead.
   ],
 
   pinia: {
@@ -17,5 +18,13 @@ export default defineNuxtConfig({
 
   devServer: {
     port: 3333,
+  },
+
+  runtimeConfig: {
+    public: {
+      cloudName: process.env.NUXT_CLOUDINARY_CLOUD_NAME,
+      cldPreset: process.env.NUXT_CLOUDINARY_UPLOAD_PRESET,
+      clientUrl: process.env.NUXT_CLIENT_URL,
+    },
   },
 });

@@ -2,6 +2,7 @@
 import { vAutoAnimate } from "@formkit/auto-animate/vue";
 import type { Category } from "@prisma/client";
 import { Wand2 } from "lucide-vue-next";
+import ImageUpload from "./ImageUpload.vue";
 import { fnAddCharacter } from "./fn-add-char";
 
 // props
@@ -9,10 +10,13 @@ defineProps<{ categories: Category[] | null }>();
 
 // methods
 const { onSubmit, loading } = fnAddCharacter();
+function onImageUpload(val?: string) {
+  console.log("onImageUpload", val);
+}
 </script>
 
 <template>
-  <form @submit="onSubmit">
+  <form @submit="onSubmit" class="space-y-8 pb-10">
     <div class="space-y-2 w-full col-span-2">
       <div>
         <h3 class="text-lg font-medium">General Information</h3>
@@ -22,7 +26,22 @@ const { onSubmit, loading } = fnAddCharacter();
       </div>
       <Separator class="bg-primary/10" />
     </div>
-    <div class="">Image upload goes here</div>
+    <FormField v-slot="{ componentField, field, value }" name="src">
+      <FormItem
+        v-auto-animate
+        class="flex flex-col items-center justify-center space-y-4 col-span-2"
+      >
+        <FormControl>
+          <ImageUpload @upload="field.onChange" :value="value" />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+    <!-- <div class="">
+      Image upload goes here
+      <ImageUpload @upload="(val) => onImageUpload(val)" />
+    </div> -->
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <FormField v-slot="{ componentField }" name="name">
         <FormItem v-auto-animate>
@@ -57,7 +76,7 @@ const { onSubmit, loading } = fnAddCharacter();
         </FormItem>
       </FormField>
       <FormField v-slot="{ componentField }" name="categoryId">
-        <FormItem>
+        <FormItem v-auto-animate>
           <FormLabel>Category</FormLabel>
 
           <Select v-bind="componentField">
@@ -93,7 +112,7 @@ const { onSubmit, loading } = fnAddCharacter();
       <Separator class="bg-primary/10" />
     </div>
     <FormField v-slot="{ componentField }" name="instructions">
-      <FormItem>
+      <FormItem v-auto-animate>
         <FormLabel>Instructions</FormLabel>
         <FormControl>
           <Textarea
@@ -111,7 +130,7 @@ const { onSubmit, loading } = fnAddCharacter();
       </FormItem>
     </FormField>
     <FormField v-slot="{ componentField }" name="seed">
-      <FormItem>
+      <FormItem v-auto-animate>
         <FormLabel>Example Conversation</FormLabel>
         <FormControl>
           <Textarea
