@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Companion } from "@prisma/client";
+
 definePageMeta({
   layout: "main",
 });
@@ -12,8 +14,8 @@ if (!isPro.value) {
   navigateTo("/");
 }
 
-const { data: initialData, error } = await useLazyFetch(
-  `/api/character/${characterId}`
+const { data: initialData } = await useLazyFetch<Companion>(
+  `/api/characters/${characterId}`
 );
 const { data: categories } = await useLazyFetch("/api/categories");
 </script>

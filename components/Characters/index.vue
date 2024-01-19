@@ -3,23 +3,26 @@ import type { Companion } from "@prisma/client";
 import { MessagesSquare } from "lucide-vue-next";
 
 interface Props {
-  data: (Companion & {
+  characters: (Companion & {
     _count: {
       messages: number;
     };
   })[];
+  loading: boolean;
 }
 const props = defineProps<Props>();
+
+console.log(props.characters, "characters");
 </script>
 
 <template>
   <div
     class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 pb-10"
-    v-if="props.data.length > 0"
+    v-if="props.characters.length > 0"
   >
-    <!-- {data.map((item) => ( -->
+    <!-- {characters.map((item) => ( -->
     <Card
-      v-for="item in props.data"
+      v-for="item in props.characters"
       key="{item.name}"
       class="bg-primary/10 rounded-xl cursor-pointer hover:opacity-75 transition border-0"
     >
@@ -44,7 +47,7 @@ const props = defineProps<Props>();
         <CardFooter
           class="flex items-center justify-between text-xs text-muted-foreground"
         >
-          <p class="lowercase">@{item.userName}</p>
+          <p class="lowercase">@{{ item.userName }}</p>
           <div class="flex items-center">
             <MessagesSquare class="w-3 h-3 mr-1" />
             {{ item._count.messages }}

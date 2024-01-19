@@ -1,10 +1,25 @@
 <script setup lang="ts">
+import type { Companion } from "@prisma/client";
+
 definePageMeta({
   layout: "main",
 });
 
+// router
+const { categoryId } = useRoute().query;
+const URL = categoryId?.toString()
+  ? `/api/characters?categoryId=${categoryId}`
+  : "/api/characters";
+
 // fetch categories
 const { pending, data: categories } = await useLazyFetch("/api/categories");
+const { data: characters, pending: loading } = await useLazyFetch<
+  (Companion & {
+    _count: {
+      messages: number;
+    };
+  })[]
+>(URL);
 </script>
 
 <template>
@@ -13,6 +28,6 @@ const { pending, data: categories } = await useLazyFetch("/api/categories");
     <Categories :categories="categories" :loading="pending" />
     <!-- 
       <Companions data={data} /> -->
-    <Characters :data="[]" />
+    <Characters :characters="characters!" :loading="loading" />
   </div>
 </template>
