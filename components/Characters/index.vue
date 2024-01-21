@@ -11,8 +11,6 @@ interface Props {
   loading: boolean;
 }
 const props = defineProps<Props>();
-
-console.log(props.characters, "characters");
 </script>
 
 <template>

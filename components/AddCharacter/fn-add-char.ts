@@ -22,7 +22,6 @@ export const fnAddCharacter = (initialData: Companion | null) => {
   });
 
   const onSubmit = handleSubmit((values) => {
-    console.log(values);
     toast({
       title: "You submitted the following values:",
       description: h(

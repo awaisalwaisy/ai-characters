@@ -31,8 +31,6 @@ async function onChange() {
     imgUrl.value = res?.secure_url!;
   }
 
-  // console.log(imgUrl.value, "imgUrl");
-
   emit("upload", res?.secure_url);
 }
 </script>

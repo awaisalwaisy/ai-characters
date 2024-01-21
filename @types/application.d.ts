@@ -2,6 +2,15 @@ import type { LocationQueryValue } from "vue-router";
 
 export type RouteQuery = LocationQueryValue | LocationQueryValue[] | null;
 export type ValidEmail = `${string}@${string}.${string}`;
+export type AnchorLink = `https://${string}` | `http://${string}`;
+export type Route = `/${string}`;
+
+export type ImgSrc =
+  | `/images/${string}.png`
+  | `/images/${string}.jpg`
+  | `/images/${string}.jpeg`
+  | `/images/${string}.gif`
+  | `/images/${string}.svg`;
 
 export interface AuthUserResponse {
   id: string;

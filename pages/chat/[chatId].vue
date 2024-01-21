@@ -1,29 +1,32 @@
 <script setup lang="ts">
-import type { Companion } from "@prisma/client";
-import type { MessageProps } from "~/components/chat/Messages/@types";
+import type { Character } from "~/components/Characters/@types";
+import { fnChat } from "./fn-chat";
 
 definePageMeta({
   layout: "chat",
 });
 
-// variables
-const loading = ref(false);
-const input = ref();
+// router
+const { chatId } = useRoute().params;
 
-// types
-interface Props {
-  messages: MessageProps[];
-  isLoading: boolean;
-  character: Companion;
-}
+// fetching
+const { data: character } = await useLazyFetch<Character>(
+  "/api/chat/" + chatId
+);
 
-// props
-defineProps<Props>();
+// submit
+const { onSubmit, input, isLoading, messages } = fnChat({
+  character: character.value,
+});
 </script>
 <template>
   <div className="flex flex-col h-full p-4 space-y-2">
-    <ChatHeader />
-    <ChatMessages />
-    <ChatForm :input="input" :loading="loading" />
+    <ChatHeader :character="character" />
+    <ChatMessages
+      :character="character"
+      :isLoading="isLoading"
+      :messages="messages"
+    />
+    <ChatForm v-model="input" :loading="isLoading" @submit="onSubmit" />
   </div>
 </template>

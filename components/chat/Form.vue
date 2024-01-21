@@ -1,22 +1,38 @@
 <script setup lang="ts">
 import { SendHorizonal } from "lucide-vue-next";
 
-interface Props {
-  input: string;
-  //   handleInputChange: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
-  //   onSubmit: (e: FormEvent<HTMLFormElement>, chatRequestOptions?: ChatRequestOptions | undefined) => void;
-  loading: boolean;
+// props
+defineProps<{
+  modelValue?: string | number;
+  loading?: boolean;
+  onSubmit?: (e: Event) => void;
+}>();
+
+// emits
+const emits = defineEmits<{
+  (e: "update:modelValue", payload: string | number): void;
+  (e: "submit", payload: Event): void;
+}>();
+
+// methods
+function updateModelValue(value: string | number) {
+  emits("update:modelValue", value);
 }
 
-defineProps<Props>();
-const input = ref();
+function onSubmit(e: Event) {
+  emits("submit", e);
+}
 </script>
 
 <template>
-  <form class="border-t border-primary/10 py-4 flex items-center gap-x-2">
+  <form
+    @submit="onSubmit"
+    class="border-t border-primary/10 py-4 flex items-center gap-x-2"
+  >
     <Input
       :disabled="loading"
-      v-model="input"
+      :model-value="modelValue"
+      @update:modelValue="updateModelValue"
       placeholder="Type a message"
       class="rounded-lg bg-primary/10"
     />
